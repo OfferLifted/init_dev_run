@@ -1,0 +1,34 @@
+#!/bin/bash
+set -e
+
+DRY="false"
+if [ "$1" == "--dry" ]; then
+  DRY="true"
+  shift
+fi
+
+log() {
+  if [ "$DRY" == "true" ]; then
+    echo "DRY: $*"
+  else
+    echo "$*"
+  fi
+}
+
+execute() {
+  log "Executing: $@"
+  if [ "$DRY" != "true" ]; then
+    "$@"
+  fi
+}
+
+log "Updating and upgrading system packages..."
+execute apt update
+execute apt upgrade -y
+
+log "Installing sudo..."
+execute apt install sudo -y
+
+log "Creating user 'base'..."
+execute adduser base
+execute usermod -aG sudo base
