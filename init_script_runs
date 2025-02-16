@@ -1,0 +1,47 @@
+#!/usr/bin/env bash
+set -e
+
+DRY="false"
+if [ "$1" == "--dry" ]; then
+  DRY="true"
+  shift
+fi
+
+log() {
+  if [ "$DRY" == "true" ]; then
+    echo "DRY: $*"
+  else
+    echo "$*"
+  fi
+}
+
+execute() {
+  log "Executing: $@"
+  if [ "$DRY" != "true" ]; then
+    "$@"
+  fi
+}
+
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+SCRIPT_RUNS_DIR="${SCRIPT_DIR}/script_runs"
+
+log "Making scripts executable before running..."
+for file in "${SCRIPT_RUNS_DIR}"/*; do
+  execute chmod +x "$file"
+done
+
+# hardcoded to ensure correct order
+execute "${SCRIPT_RUNS_DIR}/create_dirs"
+execute "${SCRIPT_RUNS_DIR}/update_apt"
+execute "${SCRIPT_RUNS_DIR}/set_locales"
+execute "${SCRIPT_RUNS_DIR}/install_python"
+execute "${SCRIPT_RUNS_DIR}/install_npm"
+execute "${SCRIPT_RUNS_DIR}/install_luarocks"
+execute "${SCRIPT_RUNS_DIR}/install_tools"
+execute "${SCRIPT_RUNS_DIR}/install_nvim"
+log ""
+
+
+
+
+

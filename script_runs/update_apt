@@ -1,0 +1,34 @@
+#!/bin/bash
+set -e
+
+DRY="false"
+if [ "$1" == "--dry" ]; then
+  DRY="true"
+  shift
+fi
+
+log() {
+  if [ "$DRY" == "true" ]; then
+    echo "DRY: $*"
+  else
+    echo "$*"
+  fi
+}
+
+execute() {
+  log "Executing: $@"
+  if [ "$DRY" != "true" ]; then
+    "$@"
+  fi
+}
+
+log "Adding repos, updating, upgrading and installing essentials..."
+execute sudo add-apt-repository ppa:git-core/ppa -y
+execute sudo add-apt-repository ppa:deadsnakes/ppa -y
+execute sudo apt update
+execute Sudo apt upgrade -y
+execute sudo apt install software-properties-common -y
+execute sudo apt install build-essential libreadline-dev unzip curl git -y
+
+execute git config --global user.name "OfferLifted"
+log ""

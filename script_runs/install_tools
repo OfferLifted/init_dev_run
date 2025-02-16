@@ -1,0 +1,34 @@
+#!/bin/bash
+set -e
+
+DRY="false"
+if [ "$1" == "--dry" ]; then
+  DRY="true"
+  shift
+fi
+
+log() {
+  if [ "$DRY" == "true" ]; then
+    echo "DRY: $*"
+  else
+    echo "$*"
+  fi
+}
+
+execute() {
+  log "Executing: $@"
+  if [ "$DRY" != "true" ]; then
+    "$@"
+  fi
+}
+
+log "Installing: tree, ripgrep, fd, xclip, jq, tldr, fzf..."
+execute sudo apt install tree -y
+execute sudo apt install ripgrep -y
+execute sudo apt install fd-find -y
+execute sudo apt install xclip -y
+execute sudo apt install jq -y
+execute sudo apt install tldr -y
+execute git clone --depth 1 https://github.com/junegunn/fzf.git "$HOME/.local/fzf"
+execute "$HOME/.local/fzf/install" --all
+log ""

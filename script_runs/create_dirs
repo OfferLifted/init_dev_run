@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+set -e
+
+DRY="false"
+if [ "$1" == "--dry" ]; then
+  DRY="true"
+  shift
+fi
+
+log() {
+  if [ "$DRY" == "true" ]; then
+    echo "DRY: $*"
+  else
+    echo "$*"
+  fi
+}
+
+execute() {
+  log "Executing: $@"
+  if [ "$DRY" != "true" ]; then
+    "$@"
+  fi
+}
+
+log "Creating dirs..."
+execute mkdir -p "$HOME/lib_downloads"
+execute mkdir -p "$HOME/.config"
+execute mkdir -p "$HOME/dev"
+execute mkdir -p "$HOME/dev/nvim_python_env"
+log ""

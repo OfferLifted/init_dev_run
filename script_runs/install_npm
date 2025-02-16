@@ -1,0 +1,30 @@
+#!/bin/bash
+set -e
+
+DRY="false"
+if [ "$1" == "--dry" ]; then
+  DRY="true"
+  shift
+fi
+
+log() {
+  if [ "$DRY" == "true" ]; then
+    echo "DRY: $*"
+  else
+    echo "$*"
+  fi
+}
+
+execute() {
+  log "Executing: $@"
+  if [ "$DRY" != "true" ]; then
+    "$@"
+  fi
+}
+
+log "Installing npm/node and neovim package with -g"
+execute curl -fsSL https://deb.nodesource.com/setup_23.x -o "$HOME/lib_downloads/nodesource_setup.sh"
+execute sudo -E bash "$HOME/lib_downloads/nodesource_setup.sh"
+execute sudo apt install nodejs -y
+execute sudo npm install -g neovim
+log ""

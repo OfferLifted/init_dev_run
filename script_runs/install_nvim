@@ -1,0 +1,32 @@
+#!/bin/bash
+set -e
+
+DRY="false"
+if [ "$1" == "--dry" ]; then
+  DRY="true"
+  shift
+fi
+
+log() {
+  if [ "$DRY" == "true" ]; then
+    echo "DRY: $*"
+  else
+    echo "$*"
+  fi
+}
+
+execute() {
+  log "Executing: $@"
+  if [ "$DRY" != "true" ]; then
+    "$@"
+  fi
+}
+
+log "Installing neovim and cloning nvim config dir from github..."
+execute curl -L -o "$HOME/lib_downloads/nvim-linux-x86_64.tar.gz" "https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.tar.gz"
+execute sudo rm -rf /opt/nvim-linux-x86_64
+execute sudo tar -C /opt -xzf "$HOME/lib_downloads/nvim-linux-x86_64.tar.gz"
+execute bash -c 'echo "export PATH=\$PATH:/opt/nvim-linux-x86_64/bin" >> $HOME/.bashrc'
+execute bash -c 'source $HOME/.bashrc'
+execute git clone https://github.com/OfferLifted/nvim.git "$HOME/.config/nvim"
+log ""

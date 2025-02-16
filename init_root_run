@@ -25,12 +25,15 @@ execute() {
 log "Updating and upgrading system packages..."
 execute apt update
 execute apt upgrade -y
+log ""
 
 log "Installing sudo..."
 execute apt install sudo -y
+log ""
 
 log "Creating user 'base'..."
 execute apt install adduser -y
 execute adduser base
 execute usermod -aG sudo base
 execute su - base
+log ""

@@ -1,0 +1,31 @@
+#!/bin/bash
+set -e
+
+DRY="false"
+if [ "$1" == "--dry" ]; then
+  DRY="true"
+  shift
+fi
+
+log() {
+  if [ "$DRY" == "true" ]; then
+    echo "DRY: $*"
+  else
+    echo "$*"
+  fi
+}
+
+execute() {
+  log "Executing: $@"
+  if [ "$DRY" != "true" ]; then
+    "$@"
+  fi
+}
+
+log "Installing luarocks 3.11.0..."
+execute wget --output-document "$HOME/lib_downloads/luarocks.tar.gz" https://luarocks.org/releases/luarocks-3.11.0.tar.gz
+execute tar zxpf "$HOME/lib_downloads/luarocks.tar.gz" -C "$HOME/lib_downloads"
+execute cd "$HOME/lib_downloads/luarocks-3.11.0"
+execute bash -c "./configure && make && sudo make install"
+log ""
+
