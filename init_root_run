@@ -1,6 +1,6 @@
 #!/bin/bash
 set -e
-
+# curl -L "https://raw.githubusercontent.com/OfferLifted/init_dev_run/refs/heads/main/init_root_run?t=$(date +%s)" -o init_root_run
 DRY="false"
 if [ "$1" == "--dry" ]; then
   DRY="true"
