@@ -35,7 +35,7 @@ execute sudo apt upgrade -y
 
 execute sudo apt purge git -y
 execute sudo apt autoremove -y
-execute sudo apt install build-essential libreadline-dev unzip curl git -y
+execute sudo apt install build-essential libreadline-dev unzip curl git wget -y
 
 execute git config --global user.name "OfferLifted"
 log ""
