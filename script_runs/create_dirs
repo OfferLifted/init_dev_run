@@ -25,6 +25,5 @@ execute() {
 log "Creating dirs..."
 execute mkdir -p "$HOME/lib_downloads"
 execute mkdir -p "$HOME/.config"
-execute mkdir -p "$HOME/dev"
 execute mkdir -p "$HOME/dev/nvim_python_env"
 log ""
