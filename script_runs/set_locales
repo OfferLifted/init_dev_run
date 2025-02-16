@@ -25,8 +25,5 @@ execute() {
 log "Installing locales packages and launching config..."
 execute sudo apt install locales -y
 execute sudo dpkg-reconfigure locales
-execute bash -c 'echo "export LANG=en_US.UTF-8" >> $HOME/.bashrc'
-execute bash -c 'echo "export LANGUAGE=en_US.UTF-8" >> $HOME/.bashrc'
-execute bash -c 'echo "export LC_ALL=en_US.UTF-8" >> $HOME/.bashrc'
 execute bash -c 'source $HOME/.bashrc'
 log ""
