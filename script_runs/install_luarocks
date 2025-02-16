@@ -23,9 +23,11 @@ execute() {
 }
 
 log "Installing luarocks 3.11.0..."
+execute sudo apt install lua5.4 -y
 execute wget --output-document "$HOME/lib_downloads/luarocks.tar.gz" https://luarocks.org/releases/luarocks-3.11.0.tar.gz
 execute tar zxpf "$HOME/lib_downloads/luarocks.tar.gz" -C "$HOME/lib_downloads"
 execute cd "$HOME/lib_downloads/luarocks-3.11.0"
-execute bash -c "./configure && make && sudo make install"
+# execute bash -c "./configure && make && sudo make install"
+execute bash -c "./configure --with-lua=/usr && make && sudo make install"
 log ""
 
