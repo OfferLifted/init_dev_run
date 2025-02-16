@@ -17,9 +17,7 @@ log() {
 
 execute() {
   log "Executing: $@"
-  if [ "$DRY" != "true" ]; then
-    "$@"
-  fi
+   "$@"
 }
 
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
@@ -29,7 +27,7 @@ log "Making scripts executable before running..."
 for file in "${SCRIPT_RUNS_DIR}"/*; do
   execute chmod +x "$file"
 done
-
+log ""
 if [ "$DRY" == "true" ]; then
   EXTRA="--dry"
 else
@@ -47,8 +45,3 @@ execute "${SCRIPT_RUNS_DIR}/install_luarocks" "$EXTRA"
 execute "${SCRIPT_RUNS_DIR}/install_tools" "$EXTRA"
 execute "${SCRIPT_RUNS_DIR}/install_nvim" "$EXTRA"
 log ""
-
-
-
-
-
