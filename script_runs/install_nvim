@@ -22,11 +22,26 @@ execute() {
   fi
 }
 
+ARCH=$(uname -m)
+case "$ARCH" in
+    x86_64)
+        NVIM_ARCH="nvim-linux-x86_64.tar.gz"
+        INSTALL_DIR="/opt/nvim-linux-x86_64"
+        ;;
+    aarch64 | arm64)
+        NVIM_ARCH="nvim-linux-arm64.tar.gz"
+        INSTALL_DIR="/opt/nvim-linux-arm64"
+        ;;
+    *)
+        log "Unsupported architecture: $ARCH"
+        exit 1
+        ;;
+esac
 log "Installing neovim and cloning nvim config dir from github..."
-execute curl -L -o "$HOME/lib_downloads/nvim-linux-x86_64.tar.gz" "https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.tar.gz"
-execute sudo rm -rf /opt/nvim-linux-x86_64
-execute sudo tar -C /opt -xzf "$HOME/lib_downloads/nvim-linux-x86_64.tar.gz"
-execute bash -c 'echo "export PATH=\$PATH:/opt/nvim-linux-x86_64/bin" >> $HOME/.bashrc'
-execute bash -c 'source $HOME/.bashrc'
+execute curl -L -o "$HOME/lib_downloads/$NVIM_ARCH" "https://github.com/neovim/neovim/releases/latest/download/$NVIM_ARCH"
+execute sudo rm -rf "$INSTALL_DIR"
+execute sudo tar -C /opt -xzf "$HOME/lib_downloads/$NVIM_ARCH"
+execute bash -c "echo 'export PATH=\$PATH:$INSTALL_DIR/bin' >> $HOME/.bashrc"
+execute bash -c "source $HOME/.bashrc"
 execute git clone https://github.com/OfferLifted/nvim.git "$HOME/.config/nvim"
 log ""
