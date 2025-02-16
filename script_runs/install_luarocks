@@ -23,7 +23,7 @@ execute() {
 }
 
 log "Installing luarocks 3.11.0..."
-execute sudo apt install lua5.4 -y
+execute sudo apt install lua5.4 liblua5.4-dev -y
 execute wget --output-document "$HOME/lib_downloads/luarocks.tar.gz" https://luarocks.org/releases/luarocks-3.11.0.tar.gz
 execute tar zxpf "$HOME/lib_downloads/luarocks.tar.gz" -C "$HOME/lib_downloads"
 execute cd "$HOME/lib_downloads/luarocks-3.11.0"
