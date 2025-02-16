@@ -30,5 +30,6 @@ log "Installing sudo..."
 execute apt install sudo -y
 
 log "Creating user 'base'..."
+execute apt install adduser -y
 execute adduser base
 execute usermod -aG sudo base
