@@ -42,5 +42,6 @@ BASE_HOME=$(eval echo ~base)
 log "Switching to user 'base' for further setup..."
 execute sudo -u base mkdir -p "$BASE_HOME/dev"
 execute sudo -u base git clone https://github.com/OfferLifted/init_dev_run.git "$BASE_HOME/dev/init_dev_run"
+execute exec su - base
 log ""
 
