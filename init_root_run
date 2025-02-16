@@ -27,12 +27,13 @@ execute apt update
 execute apt upgrade -y
 log ""
 
-log "Installing sudo..."
+log "Installing sudo, adduser and temp version of git..."
 execute apt install sudo -y
+execute apt install adduser -y
+execute apt install git -y
 log ""
 
 log "Creating user 'base'..."
-execute apt install adduser -y
 execute adduser base
 execute usermod -aG sudo base
 execute su - base

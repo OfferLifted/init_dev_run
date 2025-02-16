@@ -28,6 +28,8 @@ execute sudo add-apt-repository ppa:deadsnakes/ppa -y
 execute sudo apt update
 execute Sudo apt upgrade -y
 execute sudo apt install software-properties-common -y
+execute sudo apt purge git -y
+execute sudo apt autoremove -y
 execute sudo apt install build-essential libreadline-dev unzip curl git -y
 
 execute git config --global user.name "OfferLifted"
